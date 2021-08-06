@@ -1,4 +1,6 @@
-# excelToMarkdown
+# excelToMarkdown2
+
+Forked from https://github.com/apfernandes/excelToMarkdown and added a few **improvements**
 
 Converts the selected Excel range to a _markdown_ table
 
@@ -8,6 +10,17 @@ Converts the selected Excel range to a _markdown_ table
   * Open the Visual Basic editor
   * Copy the code
   * Select the range/table
-  * Run and see the output on the Debug Window
-  * Copy the formatted table to your markdown editor
-  * Quickly close the VBA editor before it comes back to haunt you! What a dreadful language!
+  * Text will be copied into Clipboard
+
+## Improvements
+
+* Remove Linebreaks from cells and replace them with space. This way it does not break the Markdown
+* Instead of writing to debug.print where no one will find it, it puts it directly to clipboard
+
+## Preconditions
+
+  * Needs Microsoft Forms 2.0 library to be enabled/added to project in order to be able to write into Clipboard
+
+## Potential improvements
+
+* Cell alignment could be handled by prasing cell.HorizontalAlignment 
