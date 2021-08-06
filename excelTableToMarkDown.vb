@@ -9,6 +9,9 @@ Sub rangeToMarkDown()
     Dim columnCounter As Integer
     Dim totalColumns As Integer
     Dim currentColumnWidth As Integer
+    
+    Dim FullMarkDown As String
+    
 
     totalColumns = selectedRange.Columns.Count
 
@@ -29,7 +32,8 @@ Sub rangeToMarkDown()
         columnCounter = 0
 
         For Each cell In Row.Cells
-
+        
+    
             currentColumnWidth = Len(cell.Value)
 
             If (currentColumnWidth > columnWidth(columnCounter)) Then
@@ -79,7 +83,14 @@ Sub rangeToMarkDown()
 
         Next cell
 
-        Debug.Print currentLine
+                        ' Debug.Print "Currentline is: " & currentLine
+                         '    Debug.Print "Without CRLF  : " & Replace(currentLine, vbCrLf, "")
+                                                 
+                                                '  Replace(str, vbCRLf, "")
+                                                 ' remove CRLFs from current line, they will break Markdown
+            FullMarkDown = FullMarkDown & vbCrLf & Replace(currentLine, vbLf, " ")
+        
+            'Debug.Print "Full Markdown so far: " & vbCrLf & "------------------" & vbCrLf & vbCrLf & FullMarkDown & vbCrLf & vbCrLf & "------------------"
 
         If (rowCounter = 0) Then
 
@@ -101,15 +112,29 @@ Sub rangeToMarkDown()
                 columnCounter = columnCounter + 1
 
             Next j
-    
-            Debug.Print currentLine
+            '         Debug.Print "Currentline is: " & currentLine
+            '         Debug.Print "Without CRLF  : " & Replace(currentLine, vbCrLf, "")
+                                                 
+                                                 '  Replace(str, vbCRLf, "")
+                                                 ' remove CRLFs from current line, they will break Markdown
+            FullMarkDown = FullMarkDown & vbCrLf & Replace(currentLine, vbLf, " ")
+            
+            'Debug.Print "Full Markdown so far: " & vbCrLf & "------------------" & vbCrLf & vbCrLf & FullMarkDown & vbCrLf & vbCrLf & "------------------"
+            
         End If
 
         rowCounter = rowCounter + 1
 
     Next Row
 
+' Copy Markdown to Clipboard immediately
+' needs Microsoft Forms 2.0 Library enabled
+Dim clip As New DataObject
+clip.SetText FullMarkDown
+clip.PutInClipboard
 
+'MsgBox (FullMarkDown)
+' Clipboard FullMarkDown
 
 
 End Sub
